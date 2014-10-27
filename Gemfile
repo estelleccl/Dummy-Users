@@ -19,6 +19,8 @@ gem 'shotgun'
 gem 'faker'
 gem 'data_mapper'
 gem 'dm-sqlite-adapter'
+gem 'bcrypt-ruby'
+gem 'haml-rails'
 
 group :test do
   

@@ -1,5 +1,4 @@
 enable :sessions
-set :home, '/secure/'
 
 def login?
   if session[:username].nil?
@@ -15,15 +14,14 @@ end
 
 get '/' do
   # Look in app/views/index.erb
-
-  erb :index
+ erb :index
 end
 
 post '/login' do 
-  @user = User.authenticate(params[:username], params[:password])
+  @user = User.authenticate(params[:email], params[:password])
    if @user
-     session[:username] = @user
-     redirect "/secure"
+     session[:username] = @user[:username]
+     redirect "/"
    else
      erb :invalid
    end
@@ -35,12 +33,22 @@ get '/logout' do
 end
 
 get '/signup' do
+
   erb :signup
 end
 
-get '/secure' do
-  protected!
-  erb :secure
+post '/signup' do
+  @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+   if !@user.new_record? #Returns true if this object hasn’t been saved yet
+    session[:username] = params[:username]
+    redirect "/"
+  else
+     
+     @error_msg = @user.errors.full_messages
+     puts @error_msg
+     erb :signup
+  end
+
 end
 
 

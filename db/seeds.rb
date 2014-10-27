@@ -2,7 +2,7 @@ class UserImporter
   def self.import
      20.times do |x|
        User.create(
-        full_name: Faker::Name.name,
+         username: Faker::Name.name,
         email: Faker::Internet.email,
         password: "111111"
         )
