@@ -13,7 +13,6 @@ def username
 end
 
 get '/' do
-  # Look in app/views/index.erb
  erb :index
 end
 
@@ -39,11 +38,11 @@ end
 post '/signup' do
   @user = User.create(username: params[:username], email: params[:email], password: params[:password])
    if !@user.new_record? #Returns true if this object hasn’t been saved yet
-      session[:username] = params[:username]
-      redirect "/"
+     session[:username] = params[:username]
+     redirect "/"
   else
-      @error_msg = @user.errors.full_messages
-      erb :signup
+     @error_msg = @user.errors.full_messages
+     erb :signup
   end
 end
 
