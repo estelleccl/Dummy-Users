@@ -1,19 +1,47 @@
+enable :sessions
+set :home, '/secure/'
+
+def login?
+  if session[:username].nil?
+    return false
+  else
+    return true
+  end
+end
+
+def username
+  return session[:username]
+end
+
 get '/' do
   # Look in app/views/index.erb
-  erb :index
 
+  erb :index
 end
 
 post '/login' do 
-   if User.authenticate(params[:username], params[:password])
-     puts "true"
-      erb :index
+  @user = User.authenticate(params[:username], params[:password])
+   if @user
+     session[:username] = @user
+     redirect "/secure"
    else
-     puts "false"
      erb :invalid
    end
 end
 
+get '/logout' do
+  session[:username] = nil
+  redirect "/"
+end
+
+get '/signup' do
+  erb :signup
+end
+
+get '/secure' do
+  protected!
+  erb :secure
+end
 
 
 

@@ -1,10 +1,15 @@
 <div class="container">
-  <h1>Welcome to Sinatra!</h1>
-  <p>Hello, world!</p>
-<form name = "firstname" form action="/login" method="post">
-  Username: <input type="text" name="username">
-  Password: <input type="password" name="password">
-    <input type="submit" value="Submit">
-  </form>
-
+  <% if login? %>
+    <h1>"Welcome <%= "#{username}" %>!"</h1>
+    <a href ="/logout"> Logout </a>
+  <% else %>
+    <form name = "firstname" form action="/login" method="post">
+      Username: <input type="text" name="username"><br>
+      Password: <input type="password" name="password">
+        <input type="submit" value="Login">
+        <input type="reset" value="Reset">
+      </form>
+      <a href ="/signup"> Signup </a>
+  <% end %>
 </div>
+  
