@@ -16,8 +16,11 @@ gem 'activerecord'
 gem 'rake'
 
 gem 'shotgun'
+gem 'faker'
+gem 'data_mapper'
+gem 'dm-sqlite-adapter'
 
 group :test do
-  gem 'faker'
+  
   gem 'rspec'
 end
